@@ -21,20 +21,15 @@ trait MembersSummariser {
   def fetchMembers: Future[Seq[OpenCollectiveMember]]
 }
 
-class DefaultMembersSummariser @Inject()(openCollective: OpenCollective, config: OpenCollectiveConfig)(
+class DefaultMembersSummariser @Inject()(openCollective: OpenCollective)(
   implicit ec: ExecutionContext,
 ) extends MembersSummariser {
 
-  /**
-   * Fetch all the members. These are people, organisations and hosts that are somehow related to the collective.
-   */
   def fetchMembers = {
     for {
       members <- openCollective.fetchMembers()
     } yield {
-      val memberIds            = members.map(_.id).toSet
-      val filteredMembers      = members.filter(m => m.isActive && m.role == "BACKER" && m.image.nonEmpty)
-
+      val filteredMembers = members.filter(m => m.isActive && m.role == "BACKER" && m.image.nonEmpty)
       filteredMembers.sortBy(_.totalAmountDonated).reverse
     }
   }
@@ -42,10 +37,9 @@ class DefaultMembersSummariser @Inject()(openCollective: OpenCollective, config:
 
 @Singleton
 class CachingMembersSummariser @Inject()(
-                                               actorSystem: ActorSystem,
-                                               @Named("openCollectiveMembersSummariser") delegate: MembersSummariser,
-                                             )(implicit ec: ExecutionContext)
-  extends MembersSummariser {
+  actorSystem: ActorSystem,
+  @Named("openCollectiveMembersSummariser") delegate: MembersSummariser,
+)(implicit ec: ExecutionContext) extends MembersSummariser {
   private val log = LoggerFactory.getLogger(classOf[CachingMembersSummariser])
 
   @volatile private var members: Seq[OpenCollectiveMember] = FallbackMembers.members
@@ -53,18 +47,15 @@ class CachingMembersSummariser @Inject()(
   actorSystem.scheduler.scheduleWithFixedDelay(0.seconds, 24.hours)(() => {
     delegate.fetchMembers.onComplete {
       case Failure(t)  => log.error("Unable to load members from OpenCollective", t)
-      case Success(cs) =>
-        if (members != cs) {
+      case Success(ms) =>
+        if (members != ms) {
           val count = members.size
           log.info("Loaded {} members for OpenCollective", count)
         }
-        members = cs
+        members = ms
     }
   })
 
-  /**
-   * Fetch and summarise the members from OpenCollective.
-   */
   def fetchMembers = Future.successful(members)
 }
 

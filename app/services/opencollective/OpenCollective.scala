@@ -1,7 +1,6 @@
 package services.opencollective
 
 import models.opencollective.OpenCollectiveMember
-import play.api.http.HeaderNames
 import play.api.libs.json.Reads
 import play.api.libs.ws.{WSClient, WSResponse}
 
@@ -18,7 +17,7 @@ case class OpenCollectiveConfig(
 trait OpenCollective {
 
   /**
-   * Get the members
+   * Get all the members, no matter if backer, admin or host.
    */
   def fetchMembers(): Future[Seq[OpenCollectiveMember]]
 
@@ -37,8 +36,8 @@ class DefaultOpenCollective @Inject()(ws: WSClient, config: OpenCollectiveConfig
 
   private def responseFailure(response: WSResponse): Exception = response.status match {
     case 403 =>
-      new RuntimeException("Request forbidden, please check OpenCollective API: " + response.body)
-    case error => new RuntimeException("Request failed with " + response.status + " " + response.statusText)
+      new RuntimeException("Request forbidden: " + response.body)
+    case _ => new RuntimeException("Request failed with " + response.status + " " + response.statusText)
   }
 
   private def checkSuccess(response: WSResponse): WSResponse = response.status match {

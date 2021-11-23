@@ -3,24 +3,23 @@ package models.opencollective
 import play.api.libs.json.{Json, Reads}
 
 case class OpenCollectiveMember(
-  MemberId: Long, // 239380,
-  profile: String, // https://opencollective.com/enno-runne,
-  name: String, // Enno Runne,
+  MemberId: Long, // 123456,
+  profile: String, // https://opencollective.com/john-doe,
+  name: String, // John Doe,
   image: Option[String], // https://www.gravatar.com/avatar/81956674664e179d682db2e431eb4369?default=404,
-  twitter: Option[String], // null,
-  github: Option[String], // https://github.com/ennru,
-  website: Option[String], // https://mywebsite.com
+  twitter: Option[String], // https://twitter.com/john-doe,
+  github: Option[String], // https://github.com/john-doe,
+  website: Option[String], // https://john-doe.com
   `type`: String, // USER or ORGANIZATION,
   role: String, // BACKER, ADMIN or HOST,
   isActive: Boolean, // true or false
   totalAmountDonated: Long // amount in cent (USD 100.00 = 10000)
   // createdAt: 2021-11-08 14:41,
-  // totalAmountDonated: 0,
   // lastTransactionAt: 2021-11-19 09:16,
   // lastTransactionAmount: 0,
-  // company: null,
-  // description: Father of three, Husband, JVM professional, Scala Stockholm organizer, Jfokus co-organizer, Swede by choice, Akka Serverless manager @ Lightbend,
-  // email: null,
+  // company: "Facebook Inc" or null,
+  // description: "Scala enthusiast" or null,
+  // email: "john.doe@example.com" or null,
 ) {
   def id = MemberId
   def slug = profile.substring("https://opencollective.com/".size)

@@ -8,7 +8,8 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 case class OpenCollectiveConfig(
-  openCollectiveMembersApiUrl: String,
+  restApiUrl: String,
+  slug: String,
 )
 
 /**
@@ -26,9 +27,8 @@ trait OpenCollective {
 class DefaultOpenCollective @Inject()(ws: WSClient, config: OpenCollectiveConfig)(implicit ec: ExecutionContext)
   extends OpenCollective {
 
-  private def load[T: Reads] = { // (path: String)
-    //val url = if (path.matches("https?://.*")) path else config.apiUrl + path
-    val url = config.openCollectiveMembersApiUrl
+  private def load[T: Reads](path: String) = {
+    val url = if (path.matches("https?://.*")) path else s"${config.restApiUrl}/${config.slug}/" + path
     ws.url(url).get().map { response =>
       checkSuccess(response).json.as[Seq[T]]
     }
@@ -49,5 +49,5 @@ class DefaultOpenCollective @Inject()(ws: WSClient, config: OpenCollectiveConfig
    * Get the members
    */
   override def fetchMembers(): Future[Seq[OpenCollectiveMember]] =
-    load[OpenCollectiveMember]
+    load[OpenCollectiveMember]("members/all.json")
 }

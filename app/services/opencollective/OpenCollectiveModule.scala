@@ -6,10 +6,11 @@ import play.api.inject.Module
 class OpenCollectiveModule extends Module {
 
   def bindings(environment: Environment, configuration: Configuration) = {
-    val openCollectiveMembersApiUrl = configuration.underlying.getString("opencollective.membersUrl")
+    val restApiUrl = configuration.underlying.getString("opencollective.restApiUrl")
+    val slug = configuration.underlying.getString("opencollective.slug")
 
     Seq(
-      bind[OpenCollectiveConfig].to(OpenCollectiveConfig(openCollectiveMembersApiUrl)),
+      bind[OpenCollectiveConfig].to(OpenCollectiveConfig(restApiUrl, slug)),
       bind[OpenCollective].to[DefaultOpenCollective],
       bind[MembersSummariser]
         .qualifiedWith("openCollectiveMembersSummariser")

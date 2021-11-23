@@ -5,7 +5,7 @@
 @renderBackers(backers: Seq[OpenCollectiveMember], avatarSize: Int = 32, coreteam: Boolean = false) = {
     @for(backer <- backers) {
         <a href="@backer.link">
-            <img src="@backer.image" alt="@backer.name" title="@backer.name" />
+            <img src="@backer.imageUrl" alt="@backer.name" title="@backer.name" />
         </a>
     }
 }

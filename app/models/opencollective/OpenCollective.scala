@@ -24,6 +24,14 @@ case class OpenCollectiveMember(
   def id = MemberId
   def slug = profile.substring("https://opencollective.com/".size)
   def link = website.getOrElse(twitter.getOrElse(github.getOrElse(profile)))
+  /**
+   * The "image" property is null for OpenCollective guest users.
+   * Usually the "image" points directly to where the image is hosted (like gravatar or aws), however it seems
+   * OpenCollective provides a proxy via https://images.opencollective.com/$slug/avatar/<size>.png for each image,
+   * that's what we can use for guest users to display an image that contains the initials of the name.
+   * However: Users with name "Guest" don't even provide an avatar via the OpenCollective proxy - they just don't have an image!
+   */
+  def imageUrl = image.getOrElse(s"https://images.opencollective.com/$slug/avatar/256.png")
 }
 
 object OpenCollectiveMember {

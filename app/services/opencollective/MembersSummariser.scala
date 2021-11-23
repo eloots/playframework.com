@@ -29,7 +29,7 @@ class DefaultMembersSummariser @Inject()(openCollective: OpenCollective)(
     for {
       members <- openCollective.fetchMembers()
     } yield {
-      val filteredMembers = members.filter(m => m.isActive && m.role == "BACKER" && m.image.nonEmpty)
+      val filteredMembers = members.filter(m => m.isActive && m.role == "BACKER" && m.name != "Guest") // Users with the name "Guest" don't even have a profile picture
       filteredMembers.sortBy(_.totalAmountDonated).reverse
     }
   }

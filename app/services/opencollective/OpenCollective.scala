@@ -44,10 +44,7 @@ class DefaultOpenCollective @Inject()(ws: WSClient, config: OpenCollectiveConfig
     case ok if ok < 300 => response
     case _ => throw responseFailure(response)
   }
-
-  /**
-   * Get the members
-   */
+  
   override def fetchMembers(): Future[Seq[OpenCollectiveMember]] =
     load[OpenCollectiveMember]("members/all.json")
 }

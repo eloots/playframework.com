@@ -1,0 +1,107 @@
+@import controllers.documentation.ReverseRouter
+@(title: String = "Sponsoring")(implicit req: RequestHeader, reverseRouter: ReverseRouter)
+
+@main(title, "support") {
+    <header id="top">
+        <div class="wrapper">
+            <h1>@title</h1>
+        </div>
+    </header>
+    <section id="content">
+        <article>
+            <h1>Why sponsor Play?</h1>
+            <p>
+                At the end of 2021 <a href="//www.lightbend.com/">Lightbend</a>, the company that sponsored and lead the development of the Play Framework for almost a decade, <a href="//discuss.lightbend.com/t/on-the-future-of-play-framework/8920">handed over the project to the community</a>.
+                Since then the Play Framework uses <a href="//opencollective.com/playframework">Open Collective</a> to gather money to pay contributors and to cover other project expenses in <a href="//opencollective.com/how-it-works">the most transparent way possible</a>.
+            </p>
+            <p>
+                Your donation will help the project stay live and grow successfully.
+                If you have an interest that contributors care and look after the project, maintain it and push it forward, please go to <a href="//opencollective.com/playframework">our Open Collective page</a> to become a backer or a premium sponsor.
+            </p>
+            <div>
+                <a href="//opencollective.com/playframework" class="button">Donate to our Collective</a>
+            </div>
+            <p>Of course, we also encourage and highly appreciate <a href="@routes.Application.getInvolved()">other ways to contribute</a> to the project and its community as well.</p>
+            <section>
+                <h2>Becoming a backer</h2>
+                <p>
+                    Backers that donate at least $5 per month to the project get the following benefits:
+                </p>
+                <ul>
+                    <li>Visibility on the front page of <a href="//playframework.com#sponsors">the Play Framework website</a> in the "backers" section.</li>
+                    <li>Visibility on Play's <a href="//github.com/playframework/playframework">GitHub repo</a> main project page in the "backers" section</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Becoming a premium sponsor</h2>
+                <p>
+                    If your company is invested into Play or even depends on it to run its business and therefore has an interest in the success of the project, it can become a premium sponsor for a donation of at least $1200 per month or, as one time payment, at least $14400 within a 12 month period.
+                </p>
+                <p>
+                    As premium sponsor you will have the following benefits:
+                </p>
+                <ul>
+                    <li>Visibility of your company logo on the front page of <a href="//playframework.com#sponsors">the Play Framework website.</a></li>
+                    <li>Visibility of your company logo on Play's <a href="//github.com/playframework/playframework">GitHub repo</a> main project page.</li>
+                    <li>Mention in every <a href="//github.com/playframework/playframework/releases">release announcement</a>, including your company logo.</li>
+                    <li>"Thank you" tweet from <a href="//twitter.com/playframework">@@playframework</a></li>
+                </ul>
+                <p><i>
+                        Allow us a personal comment:<br/>
+                        From the perspective of unpaid Open Source contributors, some of us working on Play for free since almost a decade, we think it would be just fair if companies and organizations would spend some money on software they have available for free and which some contributors have worked unpaid in their free time on.
+                        Of course you can always cancel or lower your monthly donations if you are not satisfied.
+                            We will try to keep the whole development process as well as the payouts to contributors as transparent as possible. Given the nature of Open Collective, you will have <a href="//opencollective.com/playframework/transactions">full insight into the financal part</a> anyway.
+                        Please think about how much value Play brings to you and if it is worth you to give some money.
+                    </i>
+                </p>
+            </section>
+            <section>
+                <h2>Who is responsible?</h2>
+                <p>
+                    At the end of 2021, a group of people which have been heavily involved with Play's development in the past, formed a steering committee, which will lead the project and will take responsibility for the future development of the framework.
+                    All of its members contributed a substantial amount of code to Play or its sub projects and some are even former employees of Lightbend.
+                </p>
+                <p>
+                    These members are:
+                    <ul>
+                        <li><a href="//github.com/BillyAutrey">Billy Autrey</a></li>
+                        <li><a href="//github.com/octonato">Renato Cavalcanti</a></li>
+                        <li><a href="//github.com/mkurz">Matthias Kurz</a></li>
+                        <li><a href="//github.com/gmethvin">Greg Methvin</a></li>
+                        <li><a href="//github.com/ihostage">Sergey Morgunov</a></li>
+                    </ul>
+                </p>
+            </section>
+            <section>
+                <h2>What will the project do with the money?</h2>
+                <p>TODO of all part time, be full time, if we gatherenough money we also tihnkg about to implement a bug bounty system</p>
+                <ul>
+                    <li>TODO (pay contributors)</li>
+                    <li>TODO (expenses like hosting, licenses, developer tooling)</li>
+                    <li>TODO (meetup fees?)</li>
+                    <li>TODO (???)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>What are the next steps?</h2>
+                <p>
+                    As of November 2021, we got some questions from people how we will proceed, what will be the next steps and if there is a roadmap.
+                </p>
+                <ul>
+                    <li><a href="#">TODO: Link to project board</a></li>
+                    <li>Explain question asked about Security fixes </li>
+                    <li>Explain question asked about support of the latest versions of Scala, SBT and JVM</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Thank you!</h2>
+                <p>
+                    Finally a huge thank you to every backer and premium sponsor to help Play move forward! Thank you very much!
+                </p>
+            </section>
+        </article>
+        <aside>
+            @commonSidebar()
+        </aside>
+    </section>
+}

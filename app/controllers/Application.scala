@@ -158,6 +158,10 @@ class Application @Inject()(
     Ok(html.getInvolved())
   }
 
+  def sponsors = Action { implicit request =>
+    Ok(html.sponsors())
+  }
+
   def cookie = Action { implicit request =>
     Ok(html.cookie())
   }
